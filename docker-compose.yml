@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    environment:
+      - TZ=Asia/Seoul
+    networks:
+      - my-network
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - ./db/data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
+      - ./error.log:/var/log/mysql/error.log
+    ports:
+      - 3307:3306
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=qwer1595@!
+      - MYSQL_DATABASE=auth_dev
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=qwer1595@!
+      - TZ=Asia/Seoul
+    networks:
+      - my-network
+
+  myapp:
+    image: pinomaker/auth-backend:latest
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 8080:8080
+    networks:
+      - my-network
+
+networks:
+  my-network:
