@@ -12,7 +12,6 @@ import {
   JWT_SECRET_REFRESH_KEY,
 } from 'config'
 import User from 'domain/user.entity'
-import Admin from 'domain/admin.entity'
 
 /**
  * 헤더에서 AccessToken을 추출한다.
@@ -235,28 +234,28 @@ export const generateToken = (user: User) => {
   }
 }
 
-/**
- * JWT Access Token과 Refresh Token을 만듭니다.
- * @param user
- */
-export const generateAdminToken = (admin: Admin) => {
-  return {
-    accessToken: jwt.sign(
-      { userId: admin.id, type: 'ADMIN' },
-      JWT_SECRET_ACCESS_KEY,
-      {
-        expiresIn: JWT_ACCESS_TOKEN_EXPIRATION_TIME,
-      },
-    ),
-    refreshToken: jwt.sign(
-      { userId: admin.id, type: 'ADMIN' },
-      JWT_SECRET_REFRESH_KEY,
-      {
-        expiresIn: JWT_REFRESH_TOKEN_EXPIRATION_TIME,
-      },
-    ),
-  }
-}
+// /**
+//  * JWT Access Token과 Refresh Token을 만듭니다.
+//  * @param user
+//  */
+// export const generateAdminToken = (admin: Admin) => {
+//   return {
+//     accessToken: jwt.sign(
+//       { userId: admin.id, type: 'ADMIN' },
+//       JWT_SECRET_ACCESS_KEY,
+//       {
+//         expiresIn: JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+//       },
+//     ),
+//     refreshToken: jwt.sign(
+//       { userId: admin.id, type: 'ADMIN' },
+//       JWT_SECRET_REFRESH_KEY,
+//       {
+//         expiresIn: JWT_REFRESH_TOKEN_EXPIRATION_TIME,
+//       },
+//     ),
+//   }
+// }
 
 /**
  * JWT에서 유저 정보를 추출합니다.

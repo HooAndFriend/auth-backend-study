@@ -7,7 +7,7 @@ import { logger } from 'utils/logger'
  */
 @Middleware({ type: 'before' })
 export default class LoggerMiddleware implements ExpressMiddlewareInterface {
-  use(request: Request, response: Response, next: NextFunction): any {
+  use(request: Request, response: Response, next: NextFunction) {
     const { method, originalUrl } = request
     logger.info(`[URL] ${method} : ${originalUrl}`)
     if (request.body) {

@@ -17,6 +17,7 @@ export class HttpErrorHandler implements ExpressErrorMiddlewareInterface {
     response: Response,
     next: NextFunction,
   ) {
+    logger.error(error)
     if (error instanceof HttpError) {
       const { method, originalUrl } = request
       const errorMessage = error.message || 'Internal Server Error'
@@ -34,6 +35,8 @@ export class HttpErrorHandler implements ExpressErrorMiddlewareInterface {
 
       logger.error(`[${error.httpCode}] ${errorMessage}`)
       response.status(error.httpCode).json(error)
+
+      return
     }
 
     next(error)
