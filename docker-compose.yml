@@ -28,15 +28,15 @@ services:
     networks:
       - my-network
 
-  myapp:
-    image: pinomaker/auth-backend:latest
-    depends_on:
-      - mysql
-      - redis
-    ports:
-      - 8080:8080
-    networks:
-      - my-network
+  # myapp:
+  #   image: pinomaker/auth-backend:latest
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - my-network
 
 networks:
   my-network:
