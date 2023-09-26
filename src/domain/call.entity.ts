@@ -5,7 +5,6 @@ import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm'
 import BaseTimeEntity from 'common/entity/BaseTime.Entity'
 
 @Entity({ name: 'TB_CALL' })
-@Unique(['id'])
 export default class Call extends BaseTimeEntity {
   @PrimaryGeneratedColumn()
   id: number

@@ -13,4 +13,21 @@ export default class CallRepository {
   }
 
   public dataSource: Repository<Call>
+
+  public async findCallsByName(name: string) {
+    const queryBuilder = this.dataSource
+      .createQueryBuilder('call')
+      .select([
+        'call.id',
+        'call.name',
+        'call.number',
+        'call.regDate',
+        'call.modDate',
+      ])
+      .where('call.name LIKE :name', {
+        name: `%${name}%`,
+      })
+
+    return await queryBuilder.getMany()
+  }
 }

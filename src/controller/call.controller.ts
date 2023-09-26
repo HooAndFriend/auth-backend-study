@@ -5,8 +5,12 @@ import {
   Get,
   JsonController,
   Post,
+  Put,
+  Delete,
   Res,
   UseBefore,
+  Param,
+  QueryParam,
 } from 'routing-controllers'
 import { Service } from 'typedi'
 
@@ -23,25 +27,22 @@ import { checkRefreshToken } from 'middleware/AuthMiddleware'
 import CallResponse from 'response/call.response'
 import RequestCallSaveDto from 'dto/call/call.save.dto'
 import RequestCallModifyDto from 'dto/call/call.modify.dto'
-import RequestCallDeleteDto from 'dto/call/call.delete.dto'
-import RequestCallGetOneDto from 'dto/call/call.getOne.dto'
-import RequestCallGetListDto from 'dto/call/call.getlist.dto'
 
 @JsonController('/call')
 @Service()
 export default class CallController {
   constructor(private readonly callService: CallService) {}
 
-  @Post('/produce')
+  @Post()
   @OpenAPI({
     responses: CallResponse.produce,
     summary: '전화번호 등록',
   })
   public async produceCall(@Body() dto: RequestCallSaveDto) {
-    return this.callService.saveCall(dto)
+    return await this.callService.saveCall(dto)
   }
 
-  @Post('/modify')
+  @Put()
   @OpenAPI({
     responses: CallResponse.modify,
     summary: '전화번호 수정',
@@ -50,28 +51,28 @@ export default class CallController {
     return this.callService.modifyCall(dto)
   }
 
-  @Post('/delete')
+  @Delete(':id')
   @OpenAPI({
     responses: CallResponse.delete,
     summary: '전화번호 삭제',
   })
-  public async deleteCall(@Body() dto: RequestCallDeleteDto) {
-    return this.callService.deleteCall(dto)
+  public async deleteCall(@Param('id') id: number) {
+    return await this.callService.deleteCall(id)
   }
-  @Get('/getOne')
+  @Get(':id')
   @OpenAPI({
     responses: CallResponse.getOne,
     summary: '전화번호 단일 조회',
   })
-  public async getOne(@Body() dto: RequestCallGetOneDto) {
-    return this.callService.getOneCall(dto)
+  public async getOne(@Param('id') id: number) {
+    return await this.callService.getOneCall(id)
   }
-  @Get('/getList')
+  @Get()
   @OpenAPI({
     responses: CallResponse.getList,
     summary: '전화번호 리스트 조회',
   })
-  public async getList(@Body() dto: RequestCallGetListDto) {
-    return this.callService.getListCall(dto)
+  public async getList(@QueryParam('name') name: string) {
+    return await this.callService.getListCall(name)
   }
 }
