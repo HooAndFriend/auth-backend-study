@@ -28,6 +28,6 @@ export default class CallRepository {
         name: `%${name}%`,
       })
 
-    return await queryBuilder.getMany()
+    return await queryBuilder.getManyAndCount()
   }
 }

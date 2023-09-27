@@ -99,14 +99,14 @@ export default class CallService {
    * 전화리스트조회
    */
   public async getListCall(name: string) {
-    const findCalls = await this.callRepository.findCallsByName(name)
+    const [calls, count] = await this.callRepository.findCallsByName(name)
 
     return CommonResponse.of({
       message: '전화번호 리스트조회에 성공했습니다.',
       statusCode: 200,
       data: {
-        calls: findCalls,
-        count: findCalls.length,
+        calls,
+        count,
       },
     })
   }
