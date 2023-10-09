@@ -1,13 +1,13 @@
 // ** Validation Imports
-import { IsInt, IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsString } from 'class-validator'
 import { JSONSchema } from 'class-validator-jsonschema'
 import User from 'domain/user.entity'
 
 export default class RequestCallSaveDto {
   @IsNotEmpty()
-  @JSONSchema({ type: 'number', example: '1' })
-  @IsInt()
-  userId: User
+  @JSONSchema({ type: 'string', example: 'admin' })
+  @IsString()
+  username: User
 
   @IsNotEmpty()
   @JSONSchema({ type: 'string', example: '임동현' })

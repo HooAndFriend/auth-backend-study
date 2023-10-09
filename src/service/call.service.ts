@@ -25,7 +25,7 @@ export default class CallService {
   public async saveCall(dto: RequestCallSaveDto) {
     await this.callRepository.dataSource.save(
       this.callRepository.dataSource.create({
-        user: dto.userId,
+        user: dto.username,
         name: dto.name,
         number: dto.number,
       }),

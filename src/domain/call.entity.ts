@@ -1,5 +1,11 @@
 // ** Typeorm Imports
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm'
 
 // ** Enum, Entity Imports
 import BaseTimeEntity from 'common/entity/BaseTime.Entity'
@@ -17,5 +23,6 @@ export default class Call extends BaseTimeEntity {
   number: string
 
   @ManyToOne((type) => User, (user) => user.calls)
+  @JoinColumn({ name: 'username', referencedColumnName: 'username' })
   user: User
 }
