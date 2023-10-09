@@ -1,8 +1,9 @@
 // ** Typeorm Imports
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
 
 // ** Enum, Entity Imports
 import BaseTimeEntity from 'common/entity/BaseTime.Entity'
+import User from 'domain/user.entity'
 
 @Entity({ name: 'TB_CALL' })
 export default class Call extends BaseTimeEntity {
@@ -14,4 +15,7 @@ export default class Call extends BaseTimeEntity {
 
   @Column({ nullable: true, length: 150, comment: '전화번호' })
   number: string
+
+  @ManyToOne((type) => User, (user) => user.calls)
+  user: User
 }
