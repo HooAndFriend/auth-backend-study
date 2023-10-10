@@ -24,5 +24,5 @@ export default class User extends BaseTimeEntity {
   password: string
 
   @OneToMany(() => Call, (call) => call.user)
-  calls: Call[]
+  call: Call[]
 }

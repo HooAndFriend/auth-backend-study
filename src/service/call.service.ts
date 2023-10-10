@@ -7,13 +7,8 @@ import CallRepository from 'repository/call.repository'
 import RequestCallSaveDto from 'dto/call/call.save.dto'
 import RequestCallModifyDto from 'dto/call/call.modify.dto'
 
-// ** Utils Imports
-import { createHash } from 'crypto'
-import { generateToken } from 'middleware/AuthMiddleware'
-
 // ** Dto, entity Imports
 import CommonResponse from 'common/dto/api.response'
-import RequestUserLocalLoginDto from 'dto/user/user.local.login.dto'
 
 @Service()
 export default class CallService {
@@ -25,7 +20,7 @@ export default class CallService {
   public async saveCall(dto: RequestCallSaveDto) {
     await this.callRepository.dataSource.save(
       this.callRepository.dataSource.create({
-        user: dto.username,
+        user: { id: dto.userId },
         name: dto.name,
         number: dto.number,
       }),
@@ -41,7 +36,8 @@ export default class CallService {
    */
   public async modifyCall(dto: RequestCallModifyDto) {
     const findCall = await this.callRepository.dataSource.findOne({
-      where: { id: dto.id },
+      where: { id: dto.id, user: { id: dto.userId } },
+      relations: ['user'],
     })
 
     if (!findCall) {
@@ -62,9 +58,9 @@ export default class CallService {
   /**
    * 전화삭제
    */
-  public async deleteCall(id: number) {
+  public async deleteCall(id: number, userId: number) {
     const findCall = await this.callRepository.dataSource.findOne({
-      where: { id: id },
+      where: { id: id, user: { id: userId } },
     })
 
     if (!findCall) {

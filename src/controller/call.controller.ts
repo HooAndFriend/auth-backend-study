@@ -51,13 +51,16 @@ export default class CallController {
     return this.callService.modifyCall(dto)
   }
 
-  @Delete(':id')
+  @Delete(':id/:userId')
   @OpenAPI({
     responses: CallResponse.delete,
     summary: '전화번호 삭제',
   })
-  public async deleteCall(@Param('id') id: number) {
-    return await this.callService.deleteCall(id)
+  public async deleteCall(
+    @Param('id') id: number,
+    @Param('userId') userId: number,
+  ) {
+    return await this.callService.deleteCall(id, userId)
   }
   @Get(':id')
   @OpenAPI({

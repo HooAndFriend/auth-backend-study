@@ -22,7 +22,6 @@ export default class Call extends BaseTimeEntity {
   @Column({ nullable: true, length: 150, comment: '전화번호' })
   number: string
 
-  @ManyToOne((type) => User, (user) => user.calls)
-  @JoinColumn({ name: 'username', referencedColumnName: 'username' })
+  @ManyToOne((type) => User, (user) => user.call)
   user: User
 }

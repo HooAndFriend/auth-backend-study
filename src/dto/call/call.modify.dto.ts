@@ -17,4 +17,9 @@ export default class RequestCallModifyDto {
   @JSONSchema({ type: 'string', example: '010-1234-1234' })
   @IsString()
   number: string
+
+  @IsNotEmpty()
+  @JSONSchema({ type: 'number', example: '1' })
+  @IsInt()
+  userId: number
 }
